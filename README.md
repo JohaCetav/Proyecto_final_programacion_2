@@ -31,3 +31,9 @@ Dataset terremotos_profundidad:
 | ID        | Caracter | Identificador del Movimiento |
 
 Paso #3: Tabla con diccionario de datos de "terremotos_magnitud"
+
+| Variable          | Tipo      | Descripción                      |
+|-------------------|-----------|----------------------------------|
+| ID                | Caracter  | Identificador del movimiento     |
+| Magnitud          | Numerica  | Magnitud del terremoto           |
+| Tipo de magnitud  | Caracter  | Unidad de medida de la magnitud  |
