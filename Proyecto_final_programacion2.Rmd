@@ -117,7 +117,6 @@ unique(datos_limpios_profundidad$Tipo)
 
 • 2.6 Creación de columnas adicionales: para el conjunto de datos terremotos_profundidad cree 2 nuevas columnas: una que contenga el mes del terremoto, y otra que contenga el año del terremoto (4pts)
 
-
 ```{r}
 datos_limpios_profundidad <- datos_limpios_profundidad |> 
   mutate(Fecha = mdy(Fecha))
@@ -141,3 +140,9 @@ datos_terremotos_unidos <- left_join(datos_limpios_profundidad, datos_limpios_ma
 datos_terremotos_final<- datos_terremotos_unidos |> 
   remove_empty(which = c("cols"))
 ```
+
+3.  **Análisis de Datos y Visualización: (39pts)**
+
+En esta sección se utilizarán diversas técnicas de análisis de datos para explorar el conjunto de datos, usando paquetes como gt, ggplot2, plotly y leaflet. A continuación se describen los pasos necesarios:
+
+#Estaremos como grupo trabajando con las bibliotecas: library(ggplot2) library(dplyr) La cuales se cargaron en el primer "R Setup"
