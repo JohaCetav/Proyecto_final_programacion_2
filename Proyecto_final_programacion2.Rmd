@@ -93,3 +93,51 @@ for (fila in filas_separadas) {
 
 head(datos_limpios_profundidad)
 ```
+
+• 2.5 Transformación de datos: para el conjunto de datos terremotos_profundidad examine cuáles son los valores distintos que hay en la variable "Type" o tipo. Use mutate para unificar valores si es necesario (4pts)
+
+```{r}
+tabla_tipo <- as.data.frame(table(datos_limpios_profundidad$Tipo))
+tabla_tipo 
+```
+```{r}
+datos_limpios_profundidad <- datos_limpios_profundidad |>
+  mutate(across(c(Tipo), function(x) ifelse(x == "earthquake", "Terremoto", x))) |>
+  mutate(across(c(Tipo), function(x) ifelse(x == "Earthquake", "Terremoto", x))) |>
+  mutate(across(c(Tipo), function(x) ifelse(x == "nuclear explosion", "Explosión Nuclear", x))) |> 
+  mutate(across(c(Tipo), function(x) ifelse(x == "Nuclear Explosion", "Explosión Nuclear", x))) |>
+  mutate(across(c(Tipo), function(x) ifelse(x == "Explosion", "Explosión", x))) |>
+  mutate(across(c(Tipo), function(x) ifelse(x == "Rock Burst", "Estallido de Roca", x)))
+  
+```
+
+```{r}
+unique(datos_limpios_profundidad$Tipo) 
+```
+
+• 2.6 Creación de columnas adicionales: para el conjunto de datos terremotos_profundidad cree 2 nuevas columnas: una que contenga el mes del terremoto, y otra que contenga el año del terremoto (4pts)
+
+
+```{r}
+datos_limpios_profundidad <- datos_limpios_profundidad |> 
+  mutate(Fecha = mdy(Fecha))
+
+datos_limpios_profundidad <- datos_limpios_profundidad |>                     
+  mutate(Año = year(Fecha))
+
+datos_limpios_profundidad <- datos_limpios_profundidad |>                              
+  mutate(Mes = month(Fecha))
+```
+
+• 2.7 Unir ambos conjuntos de datos en un solo conjunto de datos llamado datos_terremotos. Para esto use un left_join o un right_join, la llave que une ambos datasets es la columna llamada ID en los conjuntos de datos originales. (2pts)
+
+```{r}
+datos_terremotos_unidos <- left_join(datos_limpios_profundidad, datos_limpios_magnitud, by = "ID")
+```
+
+• 2.8 Eliminar columnas vacías e innecesarias: Elimine aquellas columnas vacías o que no están aportando ninguna información. (2pts)
+
+```{r}
+datos_terremotos_final<- datos_terremotos_unidos |> 
+  remove_empty(which = c("cols"))
+```
